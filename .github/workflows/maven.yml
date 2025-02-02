@@ -10,22 +10,29 @@ permissions:
 
 jobs:
   publish-release:
+  
     runs-on: ubuntu-latest
     if: github.repository == 'Lavmee/hilt-contributes-assisted-factory'
     timeout-minutes: 25
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install JDK 21
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '11'
-          check-latest: true
-        
+          java-version: 11
+
+      - name: Build
+        run: ./gradlew :build
+
       - uses: gradle/gradle-build-action@v2
 
       - name: Publish Release
-        run: ./gradlew clean publishAndReleaseToMavenCentral --no-build-cache --no-daemon --stacktrace --no-parallel
+        run: ./gradlew publishAndReleaseToMavenCentral
 
       - name: Extract release notes
         id: release_notes
