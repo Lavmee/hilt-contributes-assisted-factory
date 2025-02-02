@@ -27,12 +27,12 @@ jobs:
           java-version: 11
 
       - name: Build
-        run: ./gradlew :build
+        run: gradle :build
 
       - uses: gradle/gradle-build-action@v2
 
       - name: Publish Release
-        run: ./gradlew publishAndReleaseToMavenCentral
+        run: gradle publishAndReleaseToMavenCentral
 
       - name: Extract release notes
         id: release_notes
