@@ -21,11 +21,11 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
           check-latest: true
+        
+      - uses: gradle/gradle-build-action@v2
 
       - name: Publish Release
         run: ./gradlew clean publishAndReleaseToMavenCentral --no-build-cache --no-daemon --stacktrace --no-parallel
-        
-      - uses: gradle/gradle-build-action@v2
 
       - name: Extract release notes
         id: release_notes
